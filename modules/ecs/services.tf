@@ -13,6 +13,10 @@ resource "aws_ecs_service" "web-api" {
   launch_type     = "FARGATE"
   desired_count   = "${var.desired_tasks}"
 
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
   depends_on = ["aws_iam_role_policy.ecs_service_role_policy"]
 
   network_configuration {
