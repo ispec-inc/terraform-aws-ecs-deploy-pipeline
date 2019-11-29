@@ -1,9 +1,9 @@
 resource "aws_codepipeline" "pipeline" {
   name     = "${var.cluster_name}-pipeline"
-  role_arn = "${aws_iam_role.codepipeline_role.arn}"
+  role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
-    location = "${aws_s3_bucket.source.bucket}"
+    location = aws_s3_bucket.source.bucket
     type     = "S3"
   }
 
@@ -18,10 +18,10 @@ resource "aws_codepipeline" "pipeline" {
       version          = "1"
       output_artifacts = ["source"]
 
-      configuration {
-        Owner  = "${lookup(var.git_repository,"owner")}"
-        Repo   = "${lookup(var.git_repository,"name")}"
-        Branch = "${lookup(var.git_repository,"branch")}"
+      configuration = {
+        Owner  = var.git_repository["owner"]
+        Repo   = var.git_repository["name"]
+        Branch = var.git_repository["branch"]
       }
     }
   }
@@ -38,7 +38,7 @@ resource "aws_codepipeline" "pipeline" {
       input_artifacts  = ["source"]
       output_artifacts = ["imagedefinitions"]
 
-      configuration {
+      configuration = {
         ProjectName = "${var.cluster_name}-codebuild"
       }
     }
@@ -55,11 +55,12 @@ resource "aws_codepipeline" "pipeline" {
       input_artifacts = ["imagedefinitions"]
       version         = "1"
 
-      configuration {
-        ClusterName = "${var.cluster_name}"
-        ServiceName = "${var.app_service_name}"
+      configuration = {
+        ClusterName = var.cluster_name
+        ServiceName = var.app_service_name
         FileName    = "imagedefinitions.json"
       }
     }
   }
 }
+

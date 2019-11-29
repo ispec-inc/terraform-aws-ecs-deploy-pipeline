@@ -41,7 +41,7 @@ variable "container_name" {
 }
 
 variable "git_repository" {
-  type        = "map"
+  type        = map(string)
   description = "git repository variables"
 
   default = {
@@ -93,7 +93,7 @@ variable "desired_task_memory" {
 }
 
 variable "environment_variables" {
-  type        = "map"
+  type        = map(string)
   description = "ecs task environment variables"
 
   default = {
@@ -102,17 +102,18 @@ variable "environment_variables" {
 }
 
 variable "build_args" {
-  type    = "map"
+  type    = map(string)
   default = {}
 }
 
 variable "ssl_certificate_arn" {
-  type        = "string"
+  type        = string
   description = "ssl certification arn"
   default     = ""
 }
 
 variable "domain_name" {
-  type    = "string"
+  type    = string
   default = ""
 }
+

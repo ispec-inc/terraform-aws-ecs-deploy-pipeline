@@ -11,7 +11,7 @@ variable "app_service_name" {
 }
 
 variable "git_repository" {
-  type        = "map"
+  type        = map(string)
   description = "ecs task environment variables"
 }
 
@@ -24,7 +24,7 @@ variable "repository_url" {
 }
 
 variable "subnet_ids" {
-  type        = "list"
+  type        = list(string)
   description = "Subnet ids"
 }
 
@@ -38,6 +38,7 @@ variable "container_name" {
 }
 
 variable "build_args" {
-  type    = "map"
+  type    = map(string)
   default = {}
 }
+

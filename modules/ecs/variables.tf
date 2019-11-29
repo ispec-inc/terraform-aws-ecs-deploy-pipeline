@@ -11,7 +11,7 @@ variable "vpc_id" {
 }
 
 variable "availability_zones" {
-  type        = "list"
+  type        = list(string)
   description = "The azs to use"
 }
 
@@ -69,17 +69,18 @@ variable "helth_check_path" {
 }
 
 variable "environment_variables" {
-  type        = "map"
+  type        = map(string)
   description = "ecs task environment variables"
 }
 
 variable "ssl_certificate_arn" {
-  type        = "string"
+  type        = string
   description = "ssl certification arn"
   default     = ""
 }
 
 variable "domain_name" {
-  type    = "string"
+  type    = string
   default = ""
 }
+
