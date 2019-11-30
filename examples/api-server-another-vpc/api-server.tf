@@ -1,12 +1,28 @@
 locals {
-  application_name       = "simple-go-ping"
+  application_name       = "simple-go-ping-api"
   application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
+
+  environment = "dev"
+
+  azs = ["ap-northeast-1a", "ap-northeast-1c"]
 }
 
 module "vpc" {
-  source = "git@github.com:ispec-inc/terraform-aws-vpc-public.git"
+  source = "terraform-aws-modules/vpc/aws"
 
-  cluster_name = local.application_name
+  name = local.application_name
+
+  azs             = local.azs
+  cidr = "10.0.0.0/16"
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
+
+  enable_ipv6 = true
+
+  tags = {
+    Terraform = "true"
+    Application = local.application_name
+    Environment = local.environment
+  }
 }
 
 module "ecs-pipeline" {
@@ -14,8 +30,8 @@ module "ecs-pipeline" {
 
   is_need_vpc      = false
   vpc_id           = module.vpc.vpc_id
-  public_subnet_1a = module.vpc.public_subnet_1a
-  public_subnet_1b = module.vpc.public_subnet_1b
+  public_subnet_1a = module.vpc.public_subnets[0]
+  public_subnet_1b = module.vpc.public_subnets[1]
 
   cluster_name        = local.application_name
   app_repository_name = local.application_name

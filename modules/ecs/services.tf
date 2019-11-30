@@ -17,8 +17,6 @@ resource "aws_ecs_service" "web-api" {
     type = "CODE_DEPLOY"
   }
 
-  depends_on = [aws_iam_role_policy.ecs_service_role_policy]
-
   network_configuration {
     # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
     # force an interpolation expression to be interpreted as a list by wrapping it
@@ -28,7 +26,7 @@ resource "aws_ecs_service" "web-api" {
     # If the expression in the following list itself returns a list, remove the
     # brackets to avoid interpretation as a list of lists. If the expression
     # returns a single list item then leave it as-is and remove this TODO comment.
-    security_groups  = [local.security_group_ids]
+    security_groups  = local.security_group_ids
     subnets          = var.availability_zones
     assign_public_ip = true
   }
@@ -39,6 +37,6 @@ resource "aws_ecs_service" "web-api" {
     container_port   = var.container_port
   }
 
-  depends_on = [aws_alb_target_group.api_target_group]
+  depends_on = [aws_iam_role_policy.ecs_service_role_policy, aws_alb_target_group.api_target_group]
 }
 
