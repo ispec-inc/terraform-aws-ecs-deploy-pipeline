@@ -15,13 +15,9 @@ variable "availability_zones" {
   description = "The azs to use"
 }
 
-variable "public_subnet_1a" {
-  description = "Public Subnet on us-east-1a"
-}
-
-variable "public_subnet_1b" {
-  description = "Public Subnet on us-east-1b"
-}
+//variable "public_subnets" {
+//  description = "Public Subnet array"
+//}
 
 variable "app_repository_name" {
   description = "Name of ECR Repository"

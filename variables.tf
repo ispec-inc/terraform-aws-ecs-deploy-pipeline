@@ -4,21 +4,13 @@ variable "cluster_name" {
   default     = ""
 }
 
-variable "is_need_vpc" {
-  default = true
-}
-
 variable "vpc_id" {
   description = "If you use an external vpc"
   default     = ""
 }
 
-variable "public_subnet_1a" {
-  default = ""
-}
-
-variable "public_subnet_1b" {
-  default = ""
+variable "public_subnets" {
+  description = "public subnet array (length>=2)"
 }
 
 variable "alb_port" {
