@@ -14,7 +14,7 @@ resource "aws_ecs_service" "web-api" {
   desired_count   = var.desired_tasks
 
   deployment_controller {
-    type = "CODE_DEPLOY"
+    type = "ECS"
   }
 
   network_configuration {
