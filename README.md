@@ -15,17 +15,17 @@ Mainly works as follows:
 ## Usage
 ### simple usage
 You can publish the github source by customizing the four values. 
- - Application Name.
- - Vpc and subnets to use.
- - Port to Use(Internal and public).
- - Github repository to use.
+ 1. Application Name.
+ 1. Vpc and subnets to use.
+ 1. Port to Use(Internal and public).
+ 1. Github repository to use.
 ```main.tf
 provider "aws" {
   region = "ap-northeast-1"
 }
 
 locals {
-  # Your app name.
+  # 1. Your app name.
   application_name       = "simple-go-ping-api"
   application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
 }
@@ -34,7 +34,7 @@ module "ecs-deployline" {
   source  = "ispec-inc/ecs-deployline/aws"
   version = "0.4.0"
 
-  # Your vpc and subnets id.
+  # 2. Your vpc and subnets id.
   vpc_id         = "vpc-0000000"
   public_subnets = ["subnet-1112", "subnet-2222"]
 
@@ -42,12 +42,12 @@ module "ecs-deployline" {
   app_repository_name = local.application_name
   container_name      = local.application_name
 
-  # Port to use
+  # 3. Port to use
   alb_port         = "8005"
   container_port   = "8005"
   helth_check_path = "/ping"
 
-  # Your github repository.
+  # 4. Your github repository.
   git_repository = {
     owner  = "murawakimitsuhiro"
     name   = "go-simple-RESTful-api"
@@ -64,25 +64,25 @@ For a complete example, including a custom domain. see → [examples/api-server-
 ## Inputs
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| alb\_port | origin application load balancer port | `any` | n/a | yes |
+| alb\_port | origin application load balancer port | `string` | n/a | yes |
 | app\_repository\_name | ecr repository name | `string` | `""` | no |
-| build\_args | n/a | `map(string)` | `{}` | no |
-| cluster\_name | ecs hogehoge cluster name | `string` | `""` | no |
+| build\_args | docker build args. | `map(string)` | `{}` | no |
+| cluster\_name | ecs cluster name | `string` | `""` | no |
 | container\_name | container app name | `string` | `""` | no |
-| container\_port | destination application load balancer port | `any` | n/a | yes |
+| container\_port | destination application load balancer port | `string` | n/a | yes |
 | cpu\_to\_scale\_down | cpu % to scale down the number of containers | `number` | `30` | no |
 | cpu\_to\_scale\_up | cpu % to scale up the number of containers | `number` | `80` | no |
 | desired\_task\_cpu | desired cpu to run your tasks | `string` | `"256"` | no |
 | desired\_task\_memory | desired memory to run your tasks | `string` | `"512"` | no |
 | desired\_tasks | number of containers desired to run app task | `number` | `2` | no |
-| domain\_name | n/a | `string` | `""` | no |
+| domain\_name | domain name. (must be created in route53) | `string` | `""` | no |
 | environment\_variables | ecs task environment variables | `map(string)` | <pre>{<br>  "KEY": "value"<br>}</pre> | no |
-| git\_repository | git repository variables | `map(string)` | <pre>{<br>  "branch": "master",<br>  "name": "",<br>  "owner": ""<br>}</pre> | no |
+| git\_repository | git repository. It must contain the following key: owner, name, branch | `map(string)` | n/a | yes |
 | helth\_check\_path | target group helth check path | `string` | `"/"` | no |
 | max\_tasks | maximum | `number` | `4` | no |
 | min\_tasks | minimum | `number` | `2` | no |
-| public\_subnets | public subnet array (length>=2) | `any` | n/a | yes |
+| public\_subnets | public subnet array (length>=2) | `list(string)` | n/a | yes |
 | ssl\_certificate\_arn | ssl certification arn | `string` | `""` | no |
-| vpc\_id | If you use an external vpc | `string` | `""` | no |
+| vpc\_id | vpc for provisioning resources | `string` | n/a | yes |
 
 ## Outputs
