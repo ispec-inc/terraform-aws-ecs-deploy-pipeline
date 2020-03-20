@@ -1,4 +1,4 @@
-# Terraform AWS ECS DeployLine
+# Terraform AWS ECS Deploy PipeLine
 
 ## Introduction
 If you have a github repository with Dockerfile, you can use this module to build an ECS that can be accessed from a custom domain.
@@ -10,7 +10,7 @@ Mainly works as follows:
 - And ECS is linked to Load Balancer, enable access via its own domain.
 
 ##  Architecture
-<img src="https://github.com/ispec-inc/terraform-aws-ecs-deploy-pipeline/blob/master/.github/images/architecture.png?raw=true" width="500px">
+<img src="https://github.com/ispec-inc/terraform-aws-ecs-deploy-pipeline/blob/master/.github/images/architecture.png?raw=true" width="650px">
 
 ## Usage
 ### simple usage
@@ -59,10 +59,30 @@ module "ecs-deployline" {
  - Dockerfile should be placed at the root of the git repository to be used, and be ready to build.
  - In this simple sample, we do not link the domain or use SSL.
  
-For a complete example, including a custom domain. see -> [examples/api-server-ssl](https://github.com/ispec-inc/terraform-aws-ecs-deploy-pipeline/tree/master/examples/api-server-ssl)
-
-## Resources
+For a complete example, including a custom domain. see → [examples/api-server-ssl](https://github.com/ispec-inc/terraform-aws-ecs-deploy-pipeline/tree/master/examples/api-server-ssl)
 
 ## Inputs
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:-----:|
+| alb\_port | origin application load balancer port | `any` | n/a | yes |
+| app\_repository\_name | ecr repository name | `string` | `""` | no |
+| build\_args | n/a | `map(string)` | `{}` | no |
+| cluster\_name | ecs hogehoge cluster name | `string` | `""` | no |
+| container\_name | container app name | `string` | `""` | no |
+| container\_port | destination application load balancer port | `any` | n/a | yes |
+| cpu\_to\_scale\_down | cpu % to scale down the number of containers | `number` | `30` | no |
+| cpu\_to\_scale\_up | cpu % to scale up the number of containers | `number` | `80` | no |
+| desired\_task\_cpu | desired cpu to run your tasks | `string` | `"256"` | no |
+| desired\_task\_memory | desired memory to run your tasks | `string` | `"512"` | no |
+| desired\_tasks | number of containers desired to run app task | `number` | `2` | no |
+| domain\_name | n/a | `string` | `""` | no |
+| environment\_variables | ecs task environment variables | `map(string)` | <pre>{<br>  "KEY": "value"<br>}</pre> | no |
+| git\_repository | git repository variables | `map(string)` | <pre>{<br>  "branch": "master",<br>  "name": "",<br>  "owner": ""<br>}</pre> | no |
+| helth\_check\_path | target group helth check path | `string` | `"/"` | no |
+| max\_tasks | maximum | `number` | `4` | no |
+| min\_tasks | minimum | `number` | `2` | no |
+| public\_subnets | public subnet array (length>=2) | `any` | n/a | yes |
+| ssl\_certificate\_arn | ssl certification arn | `string` | `""` | no |
+| vpc\_id | If you use an external vpc | `string` | `""` | no |
 
 ## Outputs
