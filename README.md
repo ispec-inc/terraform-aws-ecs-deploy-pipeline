@@ -32,7 +32,7 @@ locals {
 
 module "ecs-deployline" {
   source  = "ispec-inc/ecs-deployline/aws"
-  version = "0.4.2"
+  version = "0.4.3"
 
   # 2. Your vpc and subnets id.
   vpc_id         = "vpc-0000000"
@@ -100,3 +100,7 @@ For a complete example, including a custom domain. see → [examples/api-server-
 | enable\_ssl | Bool value of ssl is valid or not. |
 | vpc\_id | vpc id. |
 | vpc\_public\_subnet\_ids | List of IDs of VPC public subnets. |
+
+
+## License
+Apache 2 Licensed. See LICENSE for full details.
