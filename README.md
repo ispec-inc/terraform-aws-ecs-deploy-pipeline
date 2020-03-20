@@ -1,4 +1,4 @@
-# Terraform AWS ECS Deploy PipeLine
+# Terraform AWS ECS Deploy Pipeline
 
 ## Introduction
 If you have a github repository with Dockerfile, you can use this module to build an ECS that can be accessed from a custom domain.
@@ -86,3 +86,17 @@ For a complete example, including a custom domain. see → [examples/api-server-
 | vpc\_id | vpc for provisioning resources | `string` | n/a | yes |
 
 ## Outputs
+| Name | Description |
+|------|-------------|
+| alb\_dns\_name | DNS address linked to ALB. (automatically) |
+| alb\_sg\_id | ID of ALB security group. |
+| app\_sg\_id | ID of application security group. (ALB and ECS adapted) |
+| cloudwatch\_log\_group\_arn | ARN of ecs cloudwatch log group. |
+| code\_pipeline\_artifact\_s3\_id | ID of s3 bucket for code pipeline artifact store. |
+| code\_pipeline\_id | ID of code pipeline. |
+| ecs-repository-url | URL of ECR with build artifacts. |
+| ecs\_sg\_id | ID of ECS security group. |
+| enable\_custom\_domain | Bool value of domain is valid or not. |
+| enable\_ssl | Bool value of ssl is valid or not. |
+| vpc\_id | vpc id. |
+| vpc\_public\_subnet\_ids | List of IDs of VPC public subnets. |
