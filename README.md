@@ -32,7 +32,7 @@ locals {
 
 module "ecs-deployline" {
   source  = "ispec-inc/ecs-deployline/aws"
-  version = "0.4.0"
+  version = "0.4.2"
 
   # 2. Your vpc and subnets id.
   vpc_id         = "vpc-0000000"

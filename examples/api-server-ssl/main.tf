@@ -16,7 +16,7 @@ data "aws_acm_certificate" "example" {
 
 module "ecs-deploy-pipeline" {
   source  = "ispec-inc/ecs-deploy-pipeline/aws"
-  version = "0.4.1"
+  version = "0.4.2"
 
   vpc_id         = "vpc-1e337679"
   public_subnets = ["subnet-26631d7d", "subnet-41776669"]
