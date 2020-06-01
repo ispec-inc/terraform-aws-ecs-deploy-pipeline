@@ -4,6 +4,7 @@ locals {
     " --build-arg ",
     formatlist("%s=%s", keys(var.build_args), values(var.build_args)),
   )}"
+  build_options = format("%s %s", var.build_options, local.needsBuildArgs ? local.buildArgsCommandStr : "")
 }
 
 data "template_file" "buildspec" {
@@ -15,7 +16,7 @@ data "template_file" "buildspec" {
     cluster_name       = var.cluster_name
     container_name     = var.container_name
     security_group_ids = join(",", var.subnet_ids)
-    build_options      = local.needsBuildArgs ? local.buildArgsCommandStr : ""
+    build_options      = local.build_options
   }
 }
 

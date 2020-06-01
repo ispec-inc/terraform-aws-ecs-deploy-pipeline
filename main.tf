@@ -8,7 +8,9 @@ module "pipeline" {
   repository_url      = module.ecs.repository_url
   app_service_name    = module.ecs.service_name
   vpc_id              = var.vpc_id
-  build_args          = var.build_args
+
+  build_options = var.build_options
+  build_args    = var.build_args
 
   subnet_ids = var.public_subnets
 }

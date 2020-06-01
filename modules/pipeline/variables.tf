@@ -42,3 +42,8 @@ variable "build_args" {
   default = {}
 }
 
+variable "build_options" {
+  type        = string
+  default     = ""
+  description = "Docker build options. ex: '-f ./build/Dockerfile' "
+}

@@ -98,6 +98,12 @@ variable "environment_variables" {
   }
 }
 
+variable "build_options" {
+  type        = string
+  default     = ""
+  description = "Docker build options. ex: '-f ./build/Dockerfile' "
+}
+
 variable "build_args" {
   description = "docker build args."
   type        = map(string)
