@@ -39,6 +39,7 @@ module "ecs-pipeline" {
   container_port   = "8005"
   helth_check_path = "/ping"
 
+  build_options = "-f ./build/Dockerfile"
   #build_args = {
   #  is_build_mode_prod  = "true"
   #  build_configuration = "dev"
