@@ -37,6 +37,13 @@ resource "aws_ecs_service" "web-api" {
     container_port   = var.container_port
   }
 
+  lifecycle {
+    ignore_changes = [
+      "task_definition",
+      "load_balancer",
+    ]
+  }
+
   depends_on = [aws_iam_role_policy.ecs_service_role_policy, aws_alb_target_group.api_target_group]
 }
 
