@@ -35,9 +35,9 @@ module "ecs-pipeline" {
   app_repository_name = local.application_name
   container_name      = local.application_name
 
-  alb_port         = "8005"
-  container_port   = "8005"
-  helth_check_path = "/ping"
+  alb_port          = "8005"
+  container_port    = "8005"
+  health_check_path = "/ping"
 
   build_options = "-f ./build/Dockerfile"
   #build_args = {

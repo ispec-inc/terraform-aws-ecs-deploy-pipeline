@@ -13,14 +13,10 @@ resource "aws_ecs_service" "web-api" {
   launch_type     = "FARGATE"
   desired_count   = var.desired_tasks
 
-  //  deployment_controller {
-  //    type = "CODE_DEPLOY"
-  //  }
-
   network_configuration {
     security_groups  = local.security_group_ids
     subnets          = var.availability_zones
-    assign_public_ip = true // false
+    assign_public_ip = true //false
   }
 
   load_balancer {
@@ -38,4 +34,3 @@ resource "aws_ecs_service" "web-api" {
 
   depends_on = [aws_iam_role_policy.ecs_service_role_policy, aws_alb_target_group.api_target_group]
 }
-

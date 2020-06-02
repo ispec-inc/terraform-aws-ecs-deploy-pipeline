@@ -31,7 +31,7 @@ module "ecs" {
   desired_task_cpu    = var.desired_task_cpu
   desired_task_memory = var.desired_task_memory
 
-  helth_check_path      = var.helth_check_path
+  health_check_path     = var.health_check_path
   environment_variables = var.environment_variables
   ssl_certificate_arn   = var.ssl_certificate_arn
   domain_name           = var.domain_name
