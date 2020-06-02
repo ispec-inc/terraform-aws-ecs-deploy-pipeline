@@ -40,7 +40,7 @@ module "ecs-pipeline" {
   app_repository_name = local.application_name
   container_name      = local.application_name
 
-  alb_port          = "8005"
+  alb_port          = "80"
   container_port    = "8005"
   health_check_path = "/ping"
 
