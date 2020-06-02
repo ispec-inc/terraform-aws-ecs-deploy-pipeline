@@ -39,8 +39,8 @@ resource "aws_ecs_service" "web-api" {
 
   lifecycle {
     ignore_changes = [
-      "task_definition",
-      "load_balancer",
+      task_definition,
+      load_balancer,
     ]
   }
 
