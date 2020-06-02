@@ -12,11 +12,15 @@ module "vpc" {
 
   name = local.application_name
 
-  azs            = local.azs
-  cidr           = "10.0.0.0/16"
-  public_subnets = ["10.0.101.0/24", "10.0.102.0/24"]
+  azs             = local.azs
+  cidr            = "10.0.0.0/16"
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
 
-  enable_ipv6 = true
+  enable_ipv6            = true
+  enable_nat_gateway     = true
+  single_nat_gateway     = true
+  one_nat_gateway_per_az = false
 
   tags = {
     Terraform   = "true"
@@ -28,8 +32,9 @@ module "vpc" {
 module "ecs-pipeline" {
   source = "../.."
 
-  vpc_id         = module.vpc.vpc_id
-  public_subnets = module.vpc.public_subnets
+  vpc_id          = module.vpc.vpc_id
+  private_subnets = module.vpc.private_subnets
+  public_subnets  = module.vpc.public_subnets
 
   cluster_name        = local.application_name
   app_repository_name = local.application_name

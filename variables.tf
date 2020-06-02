@@ -9,6 +9,11 @@ variable "vpc_id" {
   description = "vpc for provisioning resources"
 }
 
+variable "private_subnets" {
+  type        = list(string)
+  description = "private subnet array (length>=2)"
+}
+
 variable "public_subnets" {
   type        = list(string)
   description = "public subnet array (length>=2)"
@@ -91,11 +96,8 @@ variable "desired_task_memory" {
 
 variable "environment_variables" {
   type        = map(string)
-  description = "ecs task environment variables"
-
-  default = {
-    KEY = "value"
-  }
+  description = "ecs task environment variables. ex : { KEY = 'value' }"
+  default     = {}
 }
 
 variable "build_options" {

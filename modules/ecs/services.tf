@@ -15,8 +15,8 @@ resource "aws_ecs_service" "web-api" {
 
   network_configuration {
     security_groups  = local.security_group_ids
-    subnets          = var.availability_zones
-    assign_public_ip = true //false
+    subnets          = var.private_subnets
+    assign_public_ip = false
   }
 
   load_balancer {
