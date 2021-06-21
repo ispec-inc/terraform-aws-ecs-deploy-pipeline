@@ -28,7 +28,7 @@ resource "aws_alb_target_group" "api_target_group" {
   }
 
   health_check {
-    path = var.helth_check_path
+    path = var.health_check_path
     port = var.container_port
   }
 
