@@ -19,9 +19,10 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["source"]
 
       configuration = {
-        Owner  = var.git_repository["owner"]
-        Repo   = var.git_repository["name"]
-        Branch = var.git_repository["branch"]
+        OAuthToken  = var.git_repository["github_oauth_token"]
+        Owner       = var.git_repository["owner"]
+        Repo        = var.git_repository["name"]
+        Branch      = var.git_repository["branch"]
       }
     }
   }
@@ -61,6 +62,10 @@ resource "aws_codepipeline" "pipeline" {
         FileName    = "imagedefinitions.json"
       }
     }
+  }
+
+  lifecycle {
+    ignore_changes = [stage[0].action[0].configuration]
   }
 }
 
