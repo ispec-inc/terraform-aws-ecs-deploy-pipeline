@@ -41,7 +41,7 @@ variable "git_repository" {
   description = "git repository. It must contain the following key: owner, name, branch"
 }
 
-variable "helth_check_path" {
+variable "health_check_path" {
   type        = string
   description = "target group helth check path"
   default     = "/"

@@ -25,9 +25,9 @@ module "ecs-deploy-pipeline" {
   app_repository_name = local.application_name
   container_name      = local.application_name
 
-  helth_check_path = "/ping"
-  alb_port         = "8005"
-  container_port   = "8005"
+  health_check_path   = "/ping"
+  alb_port            = "8005"
+  container_port      = "8005"
 
   git_repository = {
     owner  = "murawakimitsuhiro"

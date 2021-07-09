@@ -59,7 +59,7 @@ variable "cpu_to_scale_down" {
   description = "CPU % to Scale Down the number of containers"
 }
 
-variable "helth_check_path" {
+variable "health_check_path" {
   description = ""
   default     = "/"
 }
